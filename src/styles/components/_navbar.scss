@@ -1,0 +1,15 @@
+.nav {
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+  &__list {
+    display: flex;
+    &__link:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}
