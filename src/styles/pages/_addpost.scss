@@ -1,0 +1,20 @@
+.container {
+  > form {
+    display: flex;
+    flex-direction: column;
+    > button {
+      height: 50px;
+      cursor: pointer;
+    }
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    > input,
+    textarea {
+      padding: 30px;
+      width: 300px;
+      margin-bottom: 20px;
+    }
+  }
+}
