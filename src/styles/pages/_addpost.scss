@@ -11,6 +11,9 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    > label {
+      margin-bottom: 8px;
+    }
     > input,
     textarea {
       padding: 30px;
@@ -18,7 +21,7 @@
       margin-bottom: 20px;
     }
     > select {
-      padding: 30px;
+      padding: 20px;
     }
   }
 }
