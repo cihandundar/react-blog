@@ -10,11 +10,15 @@
   &__item {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
     > input,
     textarea {
       padding: 30px;
       width: 300px;
       margin-bottom: 20px;
+    }
+    > select {
+      padding: 30px;
     }
   }
 }

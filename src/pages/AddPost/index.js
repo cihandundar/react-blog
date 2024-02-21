@@ -16,7 +16,7 @@ const AddPost = () => {
     const body = { name, description, category };
     dispatch(addNewUser(body));
     setTimeout(() => {
-      navigate("/");
+      navigate("/post");
     }, 2000);
   };
 
