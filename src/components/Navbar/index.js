@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../features/auth/authSlice";
 const Sidebar = () => {
@@ -18,13 +18,22 @@ const Sidebar = () => {
     <nav className="nav">
       <div className="nav__container">
         <div className="nav__logo">
-          <h1>WARCRAFT</h1>
+          <Link to="/">
+            <h1>WARCRAFT</h1>
+          </Link>
         </div>
         {user?.user ? (
           <ul className="nav__list">
             <li className="nav__list__link">
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li className="nav__list__link">
+              <NavLink to="/post">Post</NavLink>
+            </li>
+            <li className="nav__list__link">
               <NavLink to="/addpost">Add Post</NavLink>
             </li>
+
             <li className="nav__list__link">
               <button onClick={onLogout} className="btn">
                 Logout
