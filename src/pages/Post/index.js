@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUser, handleDelete } from "../../features/user/userSlice";
@@ -9,7 +9,8 @@ const Post = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state?.users?.isLoading);
 
-  console.log(isLoading);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
@@ -18,6 +19,10 @@ const Post = () => {
     dispatch(handleDelete(id));
   };
 
+  const filteredData = data?.filter((item) => {
+    return selectedCategory === "All" || item?.category === selectedCategory;
+  });
+
   return (
     <main className="main">
       <section className="section">
@@ -25,11 +30,23 @@ const Post = () => {
           <div className="section__container__title">
             <h2>Post</h2>
           </div>
+          <div>
+            <label htmlFor="categoryFilter">Filter by Category: </label>
+            <select
+              id="categoryFilter"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategory}
+            >
+              <option value="All">All</option>
+              <option value="technology">Technology</option>
+              <option value="travel">Travel</option>
+            </select>
+          </div>
           <div className="section__wrapper">
             {isLoading ? (
               <p className="loading">Loading...</p>
             ) : (
-              data?.map((item) => (
+              filteredData?.map((item) => (
                 <div className="cart" key={item?.id}>
                   <Link to={`/post/${item?.id}`}>
                     <div className="cart__title">
