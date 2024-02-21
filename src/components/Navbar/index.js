@@ -44,6 +44,9 @@ const Sidebar = () => {
         ) : (
           <ul className="nav__list">
             <li className="nav__list__link">
+              <NavLink to="/post">Post</NavLink>
+            </li>
+            <li className="nav__list__link">
               <NavLink to="/signin">Sign In</NavLink>
             </li>
             <li className="nav__list__link">

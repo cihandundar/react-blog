@@ -21,15 +21,15 @@ function App() {
       element: <NotFoundError />,
     },
     {
+      path: "/post",
+      element: <Post />,
+    },
+    {
       element: <PrivateRoute />,
       routes: [
         {
           path: "/",
           element: <Home />,
-        },
-        {
-          path: "/post",
-          element: <Post />,
         },
         {
           path: "/post/:id",

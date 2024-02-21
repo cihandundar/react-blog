@@ -5,6 +5,7 @@ import { fetchUser, handleDelete } from "../../features/user/userSlice";
 
 const Post = () => {
   const data = useSelector((state) => state?.users?.data);
+  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state?.users?.isLoading);
 
@@ -44,14 +45,17 @@ const Post = () => {
                       <span>Category: {item?.category || "None"}</span>
                     </div>
                   </Link>
-                  <div className="cart__btn">
-                    <button
-                      className="delete"
-                      onClick={() => handleDeleteFunction(item?.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+
+                  {isLoggedIn && (
+                    <div className="cart__btn">
+                      <button
+                        className="delete"
+                        onClick={() => handleDeleteFunction(item?.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             )}

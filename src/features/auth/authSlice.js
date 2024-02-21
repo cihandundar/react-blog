@@ -1,3 +1,4 @@
+// authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
@@ -6,11 +7,12 @@ const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   user: user ? user : null,
   isError: false,
-  isSucces: false,
+  isSuccess: false,
   isLoading: false,
   message: "",
+  isLoggedIn: user ? true : false,
 };
-console.log(user);
+
 export const authSlice = createSlice({
   name: "authSlice",
   initialState,
@@ -18,7 +20,7 @@ export const authSlice = createSlice({
     reset: (state) => {
       state.isLoading = false;
       state.isError = false;
-      state.isSucces = false;
+      state.isSuccess = false;
       state.message = "";
     },
   },
@@ -29,31 +31,36 @@ export const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSucces = true;
+        state.isSuccess = true;
         state.user = action.payload;
+        state.isLoggedIn = true;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
+        state.isLoggedIn = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+        state.isLoggedIn = false;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSucces = true;
+        state.isSuccess = true;
         state.user = action.payload;
+        state.isLoggedIn = true;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;
+        state.isLoggedIn = false;
       });
   },
 });
