@@ -35,6 +35,7 @@ function App() {
           path: "/post/:id",
           element: <PostDetails />,
         },
+
         {
           path: "/addpost",
           element: <AddPost />,
