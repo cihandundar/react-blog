@@ -24,7 +24,7 @@ const Post = () => {
           <div className="section__container__title">
             <h2>Post</h2>
           </div>
-          <div className="container">
+          <div className="section__wrapper">
             {isLoading ? (
               <p className="loading">Loading...</p>
             ) : (
