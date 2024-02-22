@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNewUser } from "../../features/user/userSlice";
 
-const AddPost = () => {
+const EditPost = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -58,7 +58,7 @@ const AddPost = () => {
                 <option value="offline">Offline</option>
               </select>
             </div>
-            <button>Add Blog</button>
+            <button>Edit</button>
           </form>
         </div>
       </div>
@@ -66,4 +66,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default EditPost;

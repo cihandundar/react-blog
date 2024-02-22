@@ -30,7 +30,7 @@ const Post = () => {
           <div className="section__container__title">
             <h2>Post</h2>
           </div>
-          <div>
+          <div className="section__filter">
             <label htmlFor="categoryFilter">Filter by Category: </label>
             <select
               id="categoryFilter"
@@ -38,8 +38,8 @@ const Post = () => {
               value={selectedCategory}
             >
               <option value="All">All</option>
-              <option value="technology">Technology</option>
-              <option value="travel">Travel</option>
+              <option value="online">Online</option>
+              <option value="offline">Offline</option>
             </select>
           </div>
           <div className="section__wrapper">
@@ -71,6 +71,7 @@ const Post = () => {
                       >
                         Delete
                       </button>
+                      <button className="edit">Edit</button>
                     </div>
                   )}
                 </div>
