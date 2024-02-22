@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 const initialState = {
   data: [],
   details: {},
@@ -39,11 +39,17 @@ export const fetchUserDetails = createAsyncThunk(
 );
 
 export const addNewUser = createAsyncThunk("users/addNewUser", async (body) => {
-  const response = await axios.post(
-    `https://64542599c18adbbdfeb058b1.mockapi.io/new`,
-    body
-  );
-  return response.data;
+  try {
+    const response = await axios.post(
+      `https://64542599c18adbbdfeb058b1.mockapi.io/new`,
+      body
+    );
+    toast.success("Post added successfully");
+    return response.data;
+  } catch (error) {
+    console.error("Error adding new user: ", error.message);
+    throw error;
+  }
 });
 
 export const addNewUserWithCategory = createAsyncThunk(
@@ -58,8 +64,14 @@ export const addNewUserWithCategory = createAsyncThunk(
 );
 
 export const handleDelete = createAsyncThunk("users/deleteUser", async (id) => {
-  await axios.delete(`https://64542599c18adbbdfeb058b1.mockapi.io/new/${id}`);
-  return id;
+  try {
+    await axios.delete(`https://64542599c18adbbdfeb058b1.mockapi.io/new/${id}`);
+    toast.error("Post deleted successfully");
+    return id;
+  } catch (error) {
+    console.error("Error deleting user: ", error.message);
+    throw error;
+  }
 });
 
 export const editTask = createAsyncThunk(
