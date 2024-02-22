@@ -35,7 +35,7 @@ const Sidebar = () => {
             </li>
 
             <li className="nav__list__link">
-              <button onClick={onLogout} className="btn">
+              <button onClick={onLogout} className="logout">
                 Logout
               </button>
             </li>

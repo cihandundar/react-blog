@@ -4,12 +4,19 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px 0;
   }
   &__list {
     display: flex;
+    align-items: center;
     &__link:not(:last-child) {
       margin-right: 20px;
     }
   }
+}
+
+.logout {
+  padding: 10px 40px;
+  cursor: pointer;
 }
