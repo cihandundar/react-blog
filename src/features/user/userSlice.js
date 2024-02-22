@@ -73,6 +73,16 @@ export const editTask = createAsyncThunk(
   }
 );
 
+export const searchUser = createAsyncThunk(
+  "users/searchUser",
+  async (searchTerm) => {
+    const response = await axios.get(
+      `https://64542599c18adbbdfeb058b1.mockapi.io/new?search=${searchTerm}`
+    );
+    return response.data;
+  }
+);
+
 export const userSlice = createSlice({
   name: `users`,
   initialState,
@@ -153,6 +163,18 @@ export const userSlice = createSlice({
     builder.addCase(editTask.rejected, (state, action) => {
       state.error = action.error.message;
       state.isLoading = false;
+    });
+    builder.addCase(searchUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = "";
+    });
+    builder.addCase(searchUser.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(searchUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
     });
   },
 });

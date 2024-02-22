@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchUser, handleDelete } from "../../features/user/userSlice";
+import {
+  fetchUser,
+  handleDelete,
+  searchUser,
+} from "../../features/user/userSlice";
 
 const Post = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const data = useSelector((state) => state?.users?.data);
   const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
-  const dispatch = useDispatch();
   const isLoading = useSelector((state) => state?.users?.isLoading);
-
+  const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
@@ -22,6 +26,14 @@ const Post = () => {
   const filteredData = data?.filter((item) => {
     return selectedCategory === "All" || item?.category === selectedCategory;
   });
+
+  const handleSearch = () => {
+    if (searchTerm) {
+      dispatch(searchUser(searchTerm));
+    } else {
+      dispatch(fetchUser());
+    }
+  };
 
   return (
     <main className="main">
@@ -41,6 +53,15 @@ const Post = () => {
               <option value="online">Online</option>
               <option value="offline">Offline</option>
             </select>
+          </div>
+          <div className="section__search">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button onClick={handleSearch}>Search</button>
           </div>
           <div className="section__wrapper">
             {isLoading ? (
