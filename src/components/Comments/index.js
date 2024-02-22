@@ -25,7 +25,16 @@ const Comment = ({ comment, onEdit, onDelete }) => {
     <div className="item">
       {isEditing ? (
         <div>
-          <textarea value={editedComment} onChange={handleCommentChange} />
+          <textarea
+            value={editedComment}
+            onChange={handleCommentChange}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                handleSaveEdit();
+              }
+            }}
+          />
           <br />
           <button className="save" onClick={handleSaveEdit}>
             Save
@@ -116,6 +125,12 @@ const CommentComponent = () => {
           placeholder="Write your comment here..."
           value={comment}
           onChange={handleCommentChange}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              handleAddComment();
+            }
+          }}
         />
         <br />
         <button className="addComment" onClick={handleAddComment}>
