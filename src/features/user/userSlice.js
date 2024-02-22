@@ -62,6 +62,17 @@ export const handleDelete = createAsyncThunk("users/deleteUser", async (id) => {
   return id;
 });
 
+export const editTask = createAsyncThunk(
+  "users/editTask",
+  async ({ id, body }) => {
+    const response = await axios.put(
+      `https://64542599c18adbbdfeb058b1.mockapi.io/new/${id}`,
+      body
+    );
+    return response.data;
+  }
+);
+
 export const userSlice = createSlice({
   name: `users`,
   initialState,
@@ -129,9 +140,23 @@ export const userSlice = createSlice({
       state.error = action.error.message;
       state.isLoading = false;
     });
+    builder.addCase(editTask.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editTask.fulfilled, (state, action) => {
+      const updatedData = state.data.map((post) =>
+        post.id === action.payload.id ? action.payload : post
+      );
+      state.data = updatedData;
+      state.isLoading = false;
+    });
+    builder.addCase(editTask.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.isLoading = false;
+    });
   },
 });
 
-export const { editTask, setCategories } = userSlice.actions;
+export const { setCategories } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,5 +1,13 @@
 import { Navbar } from "components";
-import { AddPost, Home, Post, PostDetails, SignIn, SignUp } from "./pages";
+import {
+  AddPost,
+  EditPost,
+  Home,
+  Post,
+  PostDetails,
+  SignIn,
+  SignUp,
+} from "./pages";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -35,7 +43,10 @@ function App() {
           path: "/post/:id",
           element: <PostDetails />,
         },
-
+        {
+          path: "/editpost/:postId",
+          element: <EditPost />,
+        },
         {
           path: "/addpost",
           element: <AddPost />,

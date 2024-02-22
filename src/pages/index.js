@@ -4,5 +4,5 @@ import Post from "./Post";
 import PostDetails from "./PostDetails";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-
-export { AddPost, Post, SignIn, SignUp, PostDetails, Home };
+import EditPost from "./EditPost";
+export { AddPost, Post, SignIn, SignUp, PostDetails, Home, EditPost };

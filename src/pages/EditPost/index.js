@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addNewUser } from "../../features/user/userSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { editTask, fetchUserDetails } from "../../features/user/userSlice";
 
 const EditPost = () => {
   const dispatch = useDispatch();
@@ -13,17 +13,29 @@ const EditPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = { name, description, category };
-    dispatch(addNewUser(body));
+    dispatch(editTask({ id: postId, body }));
     setTimeout(() => {
       navigate("/post");
     }, 2000);
   };
 
+  const { postId } = useParams();
+  const postDetails = useSelector((state) => state.users.details);
+
+  useEffect(() => {
+    dispatch(fetchUserDetails(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    setName(postDetails.name || "");
+    setDescription(postDetails.description || "");
+    setCategory(postDetails.category || "");
+  }, [postDetails]);
   return (
     <section className="section">
       <div className="section__container">
         <div className="section__container__title">
-          <h2>Add Post</h2>
+          <h2>Edit Post</h2>
         </div>
 
         <div className="container">

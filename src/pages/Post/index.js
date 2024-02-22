@@ -71,7 +71,9 @@ const Post = () => {
                       >
                         Delete
                       </button>
-                      <button className="edit">Edit</button>
+                      <Link to={`/editpost/${item?.id}`}>
+                        <button className="edit">Edit</button>
+                      </Link>
                     </div>
                   )}
                 </div>
