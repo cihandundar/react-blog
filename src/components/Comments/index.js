@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Comment = ({ comment, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -13,7 +13,8 @@ const Comment = ({ comment, onEdit, onDelete }) => {
   };
 
   const handleSaveEdit = () => {
-    onEdit(editedComment);
+    const editedDate = new Date(); // Yeni bir tarih oluştur
+    onEdit(editedComment, editedDate);
     setIsEditing(false);
   };
 
@@ -86,14 +87,16 @@ const CommentComponent = () => {
 
   const handleAddComment = () => {
     if (comment.trim() !== "") {
-      setCommentsList([...commentsList, { text: comment, date: new Date() }]);
+      const newComment = { text: comment, date: new Date() };
+      setCommentsList([...commentsList, newComment]);
       setComment("");
     }
   };
 
-  const handleEditComment = (editedText, index) => {
+  const handleEditComment = (editedText, index, editedDate) => {
     const updatedComments = [...commentsList];
     updatedComments[index].text = editedText;
+    updatedComments[index].date = editedDate;
     setCommentsList(updatedComments);
   };
 
@@ -113,7 +116,9 @@ const CommentComponent = () => {
             <li className="comments__list__item" key={index}>
               <Comment
                 comment={comment}
-                onEdit={(editedText) => handleEditComment(editedText, index)}
+                onEdit={(editedText, editedDate) =>
+                  handleEditComment(editedText, index, editedDate)
+                }
                 onDelete={(deletedComment) =>
                   handleDeleteComment(deletedComment)
                 }
