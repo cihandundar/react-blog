@@ -13,7 +13,7 @@ const Comment = ({ comment, onEdit, onDelete }) => {
   };
 
   const handleSaveEdit = () => {
-    const editedDate = new Date(); // Yeni bir tarih oluştur
+    const editedDate = new Date();
     onEdit(editedComment, editedDate);
     setIsEditing(false);
   };
