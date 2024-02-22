@@ -3,7 +3,7 @@
 }
 
 .item {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .btn {
@@ -33,10 +33,16 @@
 .addComment {
   padding: 8px 20px;
   cursor: pointer;
+  width: 100%;
+  height: 50px;
 }
 
 textarea {
-  max-width: 300px;
-  max-height: 50px;
+  margin-top: 20px;
+  width: 500px;
+  height: 100px;
   padding: 10px;
+  @include breakpoint(xs) {
+    width: 300px;
+  }
 }

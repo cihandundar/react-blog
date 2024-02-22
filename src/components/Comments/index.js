@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Comment = ({ comment, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,6 +18,7 @@ const Comment = ({ comment, onEdit, onDelete }) => {
     const editedDate = new Date();
     onEdit(editedComment, editedDate);
     setIsEditing(false);
+    toast.success("Comment edited successfully");
   };
 
   const handleCommentChange = (event) => {
@@ -90,6 +93,7 @@ const CommentComponent = () => {
       const newComment = { text: comment, date: new Date() };
       setCommentsList([...commentsList, newComment]);
       setComment("");
+      toast.success("Comment added successfully");
     }
   };
 
@@ -105,27 +109,14 @@ const CommentComponent = () => {
       (comment) => comment !== deletedComment
     );
     setCommentsList(updatedComments);
+    toast.error("Comment deleted successfully");
   };
 
   return (
     <div className="comments">
       <div className="comments__container">
         <h2>Comments</h2>
-        <ul className="comments__list">
-          {commentsList.map((comment, index) => (
-            <li className="comments__list__item" key={index}>
-              <Comment
-                comment={comment}
-                onEdit={(editedText, editedDate) =>
-                  handleEditComment(editedText, index, editedDate)
-                }
-                onDelete={(deletedComment) =>
-                  handleDeleteComment(deletedComment)
-                }
-              />
-            </li>
-          ))}
-        </ul>
+
         <textarea
           placeholder="Write your comment here..."
           value={comment}
@@ -141,7 +132,23 @@ const CommentComponent = () => {
         <button className="addComment" onClick={handleAddComment}>
           Add Comment
         </button>
+        <ul className="comments__list">
+          {commentsList.map((comment, index) => (
+            <li className="comments__list__item" key={index}>
+              <Comment
+                comment={comment}
+                onEdit={(editedText, editedDate) =>
+                  handleEditComment(editedText, index, editedDate)
+                }
+                onDelete={(deletedComment) =>
+                  handleDeleteComment(deletedComment)
+                }
+              />
+            </li>
+          ))}
+        </ul>
       </div>
+      <ToastContainer />
     </div>
   );
 };
