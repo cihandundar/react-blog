@@ -1,3 +1,4 @@
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "./Navbar";
-export { PrivateRoute, Navbar };
+import CommentComponent from "./Comments";
+export { PrivateRoute, Navbar, CommentComponent };

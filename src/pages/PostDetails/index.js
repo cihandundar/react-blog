@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchUserDetails } from "../../features/user/userSlice";
+import { CommentComponent } from "components";
 
 const PostDetails = () => {
   const details = useSelector((state) => state?.users?.details);
@@ -37,6 +38,9 @@ const PostDetails = () => {
             </div>
           </div>
         )}
+        <div className="details__comments">
+          <CommentComponent />
+        </div>
       </div>
     </div>
   );
