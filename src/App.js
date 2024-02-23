@@ -57,7 +57,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer position="bottom-right" />
+      <ToastContainer position="top-right" />
       <Navbar />
       <Routes>
         {route.map((route, index) => {
