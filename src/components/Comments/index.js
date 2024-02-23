@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Comment = ({ comment, onEdit, onDelete }) => {
+const Comment = ({ comment, onEdit, onDelete, onApprove, onReject }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedComment, setEditedComment] = useState(comment.text);
 
@@ -26,7 +26,7 @@ const Comment = ({ comment, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="item">
+    <div className={`item ${comment.status === "rejected" ? "rejected" : ""}`}>
       {isEditing ? (
         <div>
           <textarea
@@ -62,6 +62,19 @@ const Comment = ({ comment, onEdit, onDelete }) => {
             <button className="deleteBtn" onClick={() => onDelete(comment)}>
               Delete
             </button>
+            {comment.status === "pending" && (
+              <>
+                <button
+                  className="approveBtn"
+                  onClick={() => onApprove(comment)}
+                >
+                  Approve
+                </button>
+                <button className="rejectBtn" onClick={() => onReject(comment)}>
+                  Reject
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -90,7 +103,7 @@ const CommentComponent = () => {
 
   const handleAddComment = () => {
     if (comment.trim() !== "") {
-      const newComment = { text: comment, date: new Date() };
+      const newComment = { text: comment, date: new Date(), status: "pending" };
       setCommentsList([...commentsList, newComment]);
       setComment("");
       toast.success("Comment added successfully");
@@ -112,11 +125,49 @@ const CommentComponent = () => {
     toast.error("Comment deleted successfully");
   };
 
+  const handleApproveComment = (commentToApprove) => {
+    const updatedComments = commentsList.map((comment) =>
+      comment === commentToApprove
+        ? { ...comment, status: "approved" }
+        : comment
+    );
+    setCommentsList(updatedComments);
+    toast.success("Comment approved successfully");
+  };
+
+  const handleRejectComment = (commentToReject) => {
+    const updatedComments = commentsList.filter(
+      (comment) => comment !== commentToReject
+    );
+    setCommentsList(updatedComments);
+    toast.error("Comment rejected and deleted");
+  };
+
   return (
     <div className="comments">
       <div className="comments__container">
         <h2>Comments</h2>
-
+        <ul className="comments__list">
+          {commentsList.map((comment, index) => (
+            <li className="comments__list__item" key={index}>
+              <Comment
+                comment={comment}
+                onEdit={(editedText, editedDate) =>
+                  handleEditComment(editedText, index, editedDate)
+                }
+                onDelete={(deletedComment) =>
+                  handleDeleteComment(deletedComment)
+                }
+                onApprove={(commentToApprove) =>
+                  handleApproveComment(commentToApprove)
+                }
+                onReject={(commentToReject) =>
+                  handleRejectComment(commentToReject)
+                }
+              />
+            </li>
+          ))}
+        </ul>
         <textarea
           placeholder="Write your comment here..."
           value={comment}
@@ -132,21 +183,6 @@ const CommentComponent = () => {
         <button className="addComment" onClick={handleAddComment}>
           Add Comment
         </button>
-        <ul className="comments__list">
-          {commentsList.map((comment, index) => (
-            <li className="comments__list__item" key={index}>
-              <Comment
-                comment={comment}
-                onEdit={(editedText, editedDate) =>
-                  handleEditComment(editedText, index, editedDate)
-                }
-                onDelete={(deletedComment) =>
-                  handleDeleteComment(deletedComment)
-                }
-              />
-            </li>
-          ))}
-        </ul>
       </div>
       <ToastContainer />
     </div>

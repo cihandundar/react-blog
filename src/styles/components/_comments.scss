@@ -20,6 +20,20 @@
   cursor: pointer;
 }
 
+.approveBtn {
+  padding: 8px 20px;
+  cursor: pointer;
+  background-color: green;
+  color: #fff;
+}
+
+.rejectBtn {
+  padding: 8px 20px;
+  cursor: pointer;
+  background-color: maroon;
+  color: #fff;
+}
+
 .save {
   padding: 8px 20px;
   cursor: pointer;
